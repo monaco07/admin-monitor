@@ -16,7 +16,7 @@ export class InputService {
 
     async sendSnapshot(dto: HostInfoDTO) {
         const host = await this.hostRepo.findOneByOrFail({
-            id: dto.hostID
+            id: 1
         });
 
         const hostInfo = this.hostSnapshotRepo.create({

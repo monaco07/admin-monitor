@@ -1,4 +1,4 @@
-import { Body, Controller, Post, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Post, Req, UseInterceptors } from '@nestjs/common';
 import { HostInfoDTO } from './dto/Input.dto';
 import { InputService } from './input.service';
 import { CookieValidationInterceptor } from '../auth/cookieValidator.interceptor';
@@ -14,10 +14,12 @@ export class InputController {
     @UseInterceptors(CookieValidationInterceptor)
     @Post("sendSnapshot")
     sendData(
-        @Body() dto: HostInfoDTO){
+        @Body() dto: HostInfoDTO,
+        @Req() req: any
+        ){
 
             console.log(dto)
-            
+            console.log(req.user.username)
         return this.inputService.sendSnapshot(dto)
     }
     

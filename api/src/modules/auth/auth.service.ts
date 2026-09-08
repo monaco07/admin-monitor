@@ -86,10 +86,22 @@ export class AuthService {
             .update(cookie)
 
             .digest('hex');
-        return await this.sessionTokenRepo.exists({
+        const token =  await this.sessionTokenRepo.findOne({
             where: {
                 tokenHash: cookietokenHash
+            },
+            relations: {
+                user: true
             }
         })
+
+        if (!token){
+            throw new UnauthorizedException()
+        }
+        if(new Date() > token.expiresAt){
+            throw new UnauthorizedException("token expired")
+        }
+        console.log("erfolg")
+        return token.user
     }
 }
