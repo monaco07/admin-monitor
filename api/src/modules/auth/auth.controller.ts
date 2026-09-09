@@ -1,7 +1,8 @@
-import { Body, Controller, Post, Res } from '@nestjs/common';
+import { Body, Controller, Get, Post, Req, Res, UseInterceptors } from '@nestjs/common';
 import { LoginDTO } from './dto/login.dto';
 import { AuthService } from './auth.service';
 import { Response } from 'express';
+import { CookieValidationInterceptor } from './cookieValidator.interceptor';
 
 @Controller('auth')
 export class AuthController {
@@ -25,5 +26,15 @@ export class AuthController {
         });
 
         return { success: true, expiresAt: expiresAt };
+    }
+
+    @UseInterceptors(CookieValidationInterceptor)
+    @Get('me')
+    async me(
+        @Req() req: any
+    ){
+        return {
+            username: req.user.username
+        }
     }
 }
