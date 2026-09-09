@@ -1,6 +1,6 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { ApiToken } from "./apiToken.entity";
 import { HostSnapshot } from "./snapshots/hostSnapshot.entity";
+import { IsOptional } from "class-validator";
 
 @Entity()
 export class Host {
@@ -16,14 +16,7 @@ export class Host {
     @OneToMany(() => HostSnapshot, (snapshot) => snapshot.host, {cascade: true})
     hostSnapshots: HostSnapshot[];
 
-
-
-    // *********************************
-    // TOKEN
-    // *********************************
-    @OneToMany(() => ApiToken,
-        (apiToken) => apiToken.host,
-         { cascade: true }
-    )
-    apiToken: ApiToken[];
+    @Column()
+    @IsOptional()
+    currentToken: string
 }

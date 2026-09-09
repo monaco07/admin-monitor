@@ -17,9 +17,6 @@ export class InputController {
         @Body() dto: HostInfoDTO,
         @Req() req: any
         ){
-
-            console.log(dto)
-            console.log(req.user.username)
         return this.inputService.sendSnapshot(dto)
     }
     

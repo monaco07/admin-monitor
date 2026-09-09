@@ -14,6 +14,9 @@ export class SessionToken {
     })
     user: User;
 
+    @Column({default: false})
+    isRevoked: boolean
+
     @Column()
     expiresAt: Date;
 

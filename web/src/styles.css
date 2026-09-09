@@ -1,3 +1,26 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import 'tailwindcss';
+@import "@openng/icons/openng-icons.css";
+
+html {
+  color-scheme: light;
+}
+
+body {
+  margin: 0;
+  background-color: #fff;
+  color: #111;
+}
+
+.contact-item {
+  margin-left: auto !important;
+}
+
+.contact-item .p-menubar-item-label {
+  color: red !important;
+}
+
+.contact-item .p-menubar-item-icon {
+  color: red !important;
+}

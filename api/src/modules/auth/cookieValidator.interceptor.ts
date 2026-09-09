@@ -20,14 +20,12 @@ export class CookieValidationInterceptor implements NestInterceptor {
             throw new UnauthorizedException('Missing session cookie');
         }
 
-        // Deine Validierung
-        const user = await this.authService.validateCookie(session);
+        const sessionToken = await this.authService.validateCookie(session);
 
-        if (!user) {
+        if (!sessionToken) {
             throw new UnauthorizedException('Invalid session cookie');
         }
-
-        request.user = user
+        request.token = sessionToken
         return next.handle();
     }
 }
