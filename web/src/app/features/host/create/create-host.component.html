@@ -1,0 +1,22 @@
+<div class="card flex justify-center flex-col gap-8">
+    <h2 class="text-3xl">Neuen Server überwachen</h2>
+    <form [formGroup]="form" (ngSubmit)="save()" class="flex flex-col gap-6 w-full">
+        <p-floatlabel>
+            <input pInputText id="name" formControlName="hostname" autocomplete="off" class="w-full"/>
+            <label for="name">Namen des Servers *</label>
+        </p-floatlabel>
+        <p-floatlabel variant="on">
+            <input pInputText id="description" formControlName="description" class="w-full" autocomplete="off" />
+            <label for="description">Beschreibung</label>
+        </p-floatlabel>
+        <div class="flex flex-row justify-start gap-8 items-center">
+            <p-button (onClick)="close()" label="Schließen" styleClass="!bg-red-600 !border-red-600">
+            </p-button>
+            @if(this.form.valid){
+                <p-button type="submit" label="Speichern" styleClass=""></p-button>
+            } @else {
+                <p-button label="Speichern" styleClass="!bg-gray-300 !border-gray-300"></p-button>
+            }
+        </div>
+    </form>
+</div>

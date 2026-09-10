@@ -1,9 +1,10 @@
 import { Component, inject, OnInit, signal, Signal } from '@angular/core'
 import { ApiService } from './api.service'
 import { HeaderComponent } from "../header/header.component";
+import { DashComponent } from "../dash/dash.component";
 
 @Component({
-  imports: [HeaderComponent],
+  imports: [HeaderComponent, DashComponent],
   selector: 'app-home',
   templateUrl: './home.component.html',
 })

@@ -8,6 +8,7 @@ import { DashboardService } from './modules/dashboard/dashboard.service';
 import { DashboardModule } from './modules/dashboard/dashboard.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { AuthService } from './modules/auth/auth.service';
+import { HostModule } from './modules/host/host.module';
 
 @Module({
   imports: [
@@ -26,7 +27,8 @@ import { AuthService } from './modules/auth/auth.service';
     }),
     InputModule,
     DashboardModule,
-    AuthModule
+    AuthModule,
+    HostModule
   ],
   controllers: [AppController],
   providers: [AppService, DashboardService],

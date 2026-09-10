@@ -1,0 +1,24 @@
+<div class="border-2 border-gray-400 p-2 rounded-3xl">
+<p-tabs [(value)]="selectedDevice" class="mb-4">
+    <p-tablist>
+        @for (tab of devices; track tab.title) {
+            <p-tab [value]="tab.value">
+                {{ tab.title }}
+            </p-tab>
+        }
+    </p-tablist>
+</p-tabs>
+<p-tabs [(value)]="selectedStatistic">
+    <p-tablist>
+        @for (statistic of statistics; track statistic.title) {
+            <p-tab [value]="statistic.value">
+                {{ statistic.title }}
+            </p-tab>
+        }
+    </p-tablist>
+</p-tabs>
+<br>
+<p>HIER STEHEN DANN DATEN</p>
+<p>HIER STEHEN DANN DATEN</p>
+<p>HIER STEHEN DANN DATEN</p>
+</div>

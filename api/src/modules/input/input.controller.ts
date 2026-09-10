@@ -15,7 +15,6 @@ export class InputController {
     @Post("sendSnapshot")
     sendData(
         @Body() dto: HostInfoDTO,
-        @Req() req: any
         ){
         return this.inputService.sendSnapshot(dto)
     }
