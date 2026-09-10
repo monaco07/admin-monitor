@@ -1,7 +1,7 @@
 import { computed, inject, Service, signal } from '@angular/core'
 import { UserDTO } from '../../core/user.interface'
 import { HttpClient } from '@angular/common/http'
-import { catchError, of, tap } from 'rxjs'
+import { catchError, of, tap, throwError } from 'rxjs'
 
 @Service()
 export class AuthService {
@@ -34,9 +34,9 @@ export class AuthService {
       )
       .pipe(
         tap((user) => this.user.set(user)),
-        catchError(() => {
+        catchError((error) => {
           this.user.set(null)
-          return of(null)
+          return throwError(() => error)
         }),
       )
   }
