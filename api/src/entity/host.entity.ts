@@ -18,5 +18,5 @@ export class Host {
     hostSnapshots: HostSnapshot[];
 
     @Column({nullable: true})
-    currentToken: string
+    currentTokenHash: string
 }
