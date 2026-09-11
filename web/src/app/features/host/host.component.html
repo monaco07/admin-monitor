@@ -1,1 +1,7 @@
-<p>host works!</p>
+<app-header></app-header>
+
+{{ host()?.hostname}}
+<br>
+{{ newToken() }}
+
+<p-button label="update Token" (onClick)="generateToken()"></p-button>

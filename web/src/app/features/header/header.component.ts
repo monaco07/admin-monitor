@@ -20,6 +20,7 @@ export class HeaderComponent {
 		{
 			label: 'Home',
 			icon: 'pi pi-home',
+			routerLink: "/"
 		},
 		{
 			label: 'Host',
@@ -74,7 +75,7 @@ export class HeaderComponent {
 						},
 						...hosts.map((host) => ({
 							label: host.hostname,
-							routerLink: `host/${host.id}`,
+							routerLink: `/host/${host.id}`,
 						})),
 					],
 				}

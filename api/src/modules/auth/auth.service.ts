@@ -7,11 +7,13 @@ import { Repository } from 'typeorm';
 import * as argon2 from 'argon2';
 import { createHash, randomBytes } from 'crypto';
 import { SessionToken } from '../../entity/auth/session.entity';
+import { Host } from '../../entity/host.entity';
 
 @Injectable()
 export class AuthService {
   constructor(
     private configService: ConfigService,
+    @InjectRepository(Host) private hostRepo: Repository<Host>,
     @InjectRepository(User) private userRepo: Repository<User>,
     @InjectRepository(SessionToken)
     private sessionTokenRepo: Repository<SessionToken>,
@@ -103,7 +105,26 @@ export class AuthService {
     }
     return token;
   }
+  async validateApiToken(token: string){
+    const apiTokenHash = createHash('sha256')
+      .update(token)
+      .digest('hex');
 
+    if(apiTokenHash.length < 1 ){
+      throw new UnauthorizedException("no token given")
+    }
+    const host = await this.hostRepo.findOne({
+      where: {
+        currentTokenHash: apiTokenHash,
+      },
+    });
+
+    if (!host) {
+      throw new UnauthorizedException('token wrong!');
+    }
+
+    return host;
+  }
   async logout(token: SessionToken) {
     token.isRevoked = true;
     await this.sessionTokenRepo.save(token);

@@ -11,12 +11,15 @@ export class Host {
 
     @Column({nullable: true})
     description: string
+
+    @Column({nullable: true})
+    currentTokenHash: string
+    
     // *********************************
     // REFERENZEN
     // *********************************
     @OneToMany(() => HostSnapshot, (snapshot) => snapshot.host, {cascade: true})
     hostSnapshots: HostSnapshot[];
 
-    @Column({nullable: true})
-    currentTokenHash: string
+
 }

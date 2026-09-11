@@ -20,25 +20,33 @@ export class HostService {
     return this.toDTOs(hosts);
   }
 
-  async updateAPIToken(hostID: number) {
+  async updateToken(hostID: number) {
     const token = randomBytes(32).toString('base64url');
     const tokenHash = createHash('sha256').update(token).digest('hex');
 
-    const host = await this.hostRepo.findOneOrFail(
-        {
-            where: {
-                id: hostID
-            }
-        }
-    )
-    host.currentTokenHash = tokenHash
-    await this.hostRepo.save(host)
+    const host = await this.hostRepo.findOneOrFail({
+      where: {
+        id: hostID,
+      },
+    });
+    host.currentTokenHash = tokenHash;
+    await this.hostRepo.save(host);
 
     const dto: UpdatedAPITokenDTO = {
-        hostID: hostID,
-        token: token
-    }
-    return dto
+      hostID: hostID,
+      token: token,
+    };
+    return dto;
+  }
+
+  async revokeToken(hostID: number) {
+    const host = await this.hostRepo.findOneOrFail({
+      where: {
+        id: hostID,
+      },
+    });
+    host.currentTokenHash = ""
+    await this.hostRepo.save(host);
   }
 
   toDTO(host: Host): HostDTO {

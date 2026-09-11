@@ -1,4 +1,4 @@
-import { inject, Service, signal } from '@angular/core'
+import { Host, inject, Service, signal } from '@angular/core'
 import { HostDTO } from './host.dto'
 import { HttpClient } from '@angular/common/http'
 import { HostService } from './host.service'
@@ -33,5 +33,9 @@ export class HostStateService {
 					console.error(err)
 				},
 			})
+	}
+	getHostByID(id: number): HostDTO | null{
+		console.log("GET BY ID", id, this.hosts())
+		return this.hosts().find(h => h.id === id) || null
 	}
 }

@@ -14,21 +14,21 @@ export class InputService {
 
     }
 
-    async sendSnapshot(dto: HostInfoDTO) {
-        const host = await this.hostRepo.findOneByOrFail({
-            id: 1
-        });
+    async sendSnapshot(dto: HostInfoDTO, hostEntity: Host) {
 
         const hostInfo = this.hostSnapshotRepo.create({
             architecture: dto.architecture,
             dockerSnapshots: [],
-            host,
+            host: hostEntity,
             hostname: dto.hostname,
             kernel: dto.kernel,
             operatingSystem: dto.operating_system
         });
 
-        return this.hostSnapshotRepo.save(hostInfo);
+        await this.hostSnapshotRepo.save(hostInfo);
+        return {
+            "success": true
+        }
 
     }
 }

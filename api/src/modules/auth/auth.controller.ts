@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Post, Req, Res, UseInterceptors } from '@nestjs/common';
-import { LoginDTO, ModifiedRequest, UserDTO } from './dto/login.dto';
+import { LoginDTO, CookieRequest, UserDTO } from './dto/login.dto';
 import { AuthService } from './auth.service';
 import { Response } from 'express';
 import { CookieValidationInterceptor } from './cookieValidator.interceptor';
@@ -33,7 +33,7 @@ export class AuthController {
     @UseInterceptors(CookieValidationInterceptor)
     @Get('me')
     async me(
-        @Req() req: ModifiedRequest
+        @Req() req: CookieRequest
     ): Promise<UserDTO>{
         const dto = new UserDTO()
         dto.expiredAt = req.token.expiresAt.toISOString()
@@ -44,7 +44,7 @@ export class AuthController {
     @UseInterceptors(CookieValidationInterceptor)
     @Get('logout')
     async logout(
-        @Req() req: ModifiedRequest,
+        @Req() req: CookieRequest,
         @Res({passthrough: true}) res: Response
     ){
         await this.authService.logout(req.token)

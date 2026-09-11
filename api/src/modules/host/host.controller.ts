@@ -2,7 +2,6 @@ import { Body, Controller, Get, Post, Req, UseInterceptors } from '@nestjs/commo
 import { CookieValidationInterceptor } from '../auth/cookieValidator.interceptor';
 import { HostService } from './host.service';
 import { CreateHostDTO, UpdateAPITokenDTO } from './dto/host.dto';
-import { ModifiedRequest } from '../auth/dto/login.dto';
 
 @UseInterceptors(CookieValidationInterceptor)
 @Controller('host')
@@ -26,6 +25,13 @@ export class HostController {
     async updateToken(
         @Body() dto: UpdateAPITokenDTO
     ){
-        return await this.hostService.updateAPIToken(dto.id)
+        return await this.hostService.updateToken(dto.id)
+    }
+    @Post('revokeToken')
+    async revokeToken(
+        @Body() dto: UpdateAPITokenDTO
+    ){
+        return await this.hostService.revokeToken(dto.id)
     }
 }
+
